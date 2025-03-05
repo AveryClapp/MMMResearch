@@ -51,7 +51,7 @@ __global__ void __launch_bounds__(NUM_THREADS)
 
 	const uint innerRowA = threadIdx.x / (BK / 4);
 	const uint innerColA = threadIdx.x % (BK / 4);
-	constexpr uint rowStrideA = (NUM_THREADS * 4) / BK;
+	constexpr uint rowStrideA = NUM_THREADS / (BK / 4);
 	const uint innerRowB = threadIdx.x / (BN / 4);
 	const uint innerColB = threadIdx.x % (BN / 4);
 	constexpr uint rowStrideB = NUM_THREADS / (BN / 4);
