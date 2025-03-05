@@ -81,7 +81,7 @@ __global__ void __launch_bounds__(NUM_THREADS)
 				for (uint i = 0; i < TM; ++i) {
 					regM[wSubRowIdx * TM + i] =
 						As[(dotIdx * BM) + warpRow * WM + wSubRowIdx * WSUBM +
-												threadRowInWarp * TM + i];
+							threadRowInWarp * TM + i];
 				}
 			}
 			for (uint wSubColIdx = 0; wSubColIdx < WNITER; ++wSubColIdx) {
@@ -96,10 +96,10 @@ __global__ void __launch_bounds__(NUM_THREADS)
 				for (uint wSubColIdx = 0; wSubColIdx < WNITER; ++wSubColIdx) {
 					for (uint resIdxM = 0; resIdxM < TM; ++resIdxM) {
 						for (uint resIdxN = 0; resIdxN < TN; ++resIdxN) {
-								threadResults[(wSubRowIdx * TM + resIdxM) * (WNITER * TN) +
-									(wSubColIdx * TN) + resIdxN] +=
-									regM[wSubRowIdx * TM + resIdxM] *
-									regN[wSubColIdx * TN + resIdxN];
+							threadResults[(wSubRowIdx * TM + resIdxM) * (WNITER * TN) +
+								(wSubColIdx * TN) + resIdxN] +=
+								regM[wSubRowIdx * TM + resIdxM] *
+								regN[wSubColIdx * TN + resIdxN];
 						}
 					}
 				}
@@ -122,8 +122,8 @@ __global__ void __launch_bounds__(NUM_THREADS)
 					tmp.z = threadResults[i + 2];
 					tmp.w = threadResults[i + 3];
 					reinterpret_cast<float4 *>(
-								&C_interim[(threadRowInWarp * TM + resIdxM) * N +
-								threadColInWarp * TN + resIdxN])[0] = tmp;
+						&C_interim[(threadRowInWarp * TM + resIdxM) * N +
+						threadColInWarp * TN + resIdxN])[0] = tmp;
 				}
 			}
 		}	
